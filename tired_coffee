@@ -1,0 +1,88 @@
+
+float recX=60;
+float recY=240;
+float recWidth = 60; // Width of the rectangle
+float recHeight = 70; // Height of the rectangle
+PVector leftEye;
+PVector rightEye;
+
+void setup(){
+  size(680, 400);
+  leftEye = new PVector(300, 100);
+  rightEye = new PVector(380, 100);
+    stroke(0); // Set the line color to black
+  strokeWeight(2); // Set the line thickness to 2 pixels
+    line(100, 50, 100, 150);
+}
+
+void draw(){
+  background(235, 228, 206);
+  
+  stroke(0); // Set the line color to black
+  strokeWeight(3); // Set the line thickness to 2 pixels
+  line(340, 340, 340, 150);
+  strokeWeight(3);
+  //right arm
+  pushMatrix();
+  translate(340, 210);
+  rotate(radians(150));
+  line(0, 0, 0, -110);
+  translate(0, -110);
+  rotate(radians(210));
+  line(0, 0, 0, -128);
+  strokeWeight(4);
+  translate(0, -128);
+  rotate(radians(220));
+  line(0, 0, 0, 25);
+  popMatrix();
+  
+  // left arm
+   pushMatrix();
+   strokeWeight(3);
+  translate(340, 210);
+  rotate(radians(200));
+  line(0, 0, 0, -110);
+  popMatrix();
+  
+  strokeWeight(2);
+
+  fill(130, 69, 18);
+  rect(0,300,680,300);
+  
+
+  fill(200);
+  if (mousePressed) {
+      recX = mouseX;
+      recY = mouseY;
+    }
+     strokeWeight(4);
+     rect(recX, recY,recWidth,recHeight);
+     noFill();
+     arc(recX+50, recY+35,recWidth,recHeight, radians(270),radians(430));
+  strokeWeight(3);
+  fill(255);
+  ellipse(340,100,180,180);
+  PVector mouseVector = new PVector(mouseX, mouseY);
+
+  PVector leftPupil = leftEye.copy().add(mouseVector.copy().sub(leftEye).setMag(10));
+  PVector rightPupil = rightEye.copy().add(mouseVector.copy().sub(rightEye).setMag(10));
+
+  fill(255);
+  ellipse(leftEye.x, leftEye.y, 50, 50);
+  ellipse(rightEye.x, rightEye.y, 50, 50);
+
+  fill(0);
+  ellipse(leftPupil.x, leftPupil.y, 20, 20);
+  ellipse(rightPupil.x, rightPupil.y, 20, 20);
+  noFill();
+  arc(leftEye.x+40,  leftEye.y+50, 50, 20, radians(210), radians(350));
+
+  // Draw eyelids using arcs
+  fill(200);
+  
+  // Left eyelid
+  arc(leftEye.x,  leftEye.y, 50, 50, radians(180), radians(360)); // Adjusted angles for rotation
+  
+  // Right eyelid
+  arc(rightEye.x, rightEye.y, 50, 50, radians(180), radians(360)); // Adjusted angles for rotation
+}
